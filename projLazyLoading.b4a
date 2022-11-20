@@ -1,0 +1,174 @@
+﻿Build1=Default,b4a.example
+File1=1.bal
+File2=card1.bal
+File3=ic_cached_white_24dp.png
+File4=ic_done_white_24dp.png
+File5=Layout.bal
+File6=pexels-photo-446811.jpeg
+File7=pexels-photo-571195.jpeg
+File8=pexels-photo-592798.jpeg
+File9=pexels-photo-736212.jpeg
+FileGroup1=Default Group
+FileGroup2=Default Group
+FileGroup3=Default Group
+FileGroup4=Default Group
+FileGroup5=Default Group
+FileGroup6=Default Group
+FileGroup7=Default Group
+FileGroup8=Default Group
+FileGroup9=Default Group
+Group=Default Group
+Library1=core
+Library2=javaobject
+Library3=okhttputils2
+Library4=xcustomlistview
+Library5=xui
+Library6=json
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+Module1=LazyLoadingPage
+Module2=modCommon
+Module3=Starter
+Module4=svcProduction
+NumberOfFiles=9
+NumberOfLibraries=6
+NumberOfModules=4
+Version=11.8
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: B4A Example
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Private xui As XUI
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	Private CLV1 As CustomListView
+	Private ImageView1 As B4XView
+	Private lblTitle As B4XView
+	Private lblContent As B4XView
+	Private lblAction1 As Label
+	Private lblAction2 As Label
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	' Activity.LoadLayout("Layout")
+	'Do not forget to load the layout file created with the visual designer. For example:
+	Activity.LoadLayout("1")
+	Activity.AddMenuItem3("", "refresh", xui.LoadBitmapResize(File.DirAssets, "ic_cached_white_24dp.png", 32dip, 32dip, True), True)
+	Activity.AddMenuItem3("", "done", xui.LoadBitmapResize(File.DirAssets, "ic_done_white_24dp.png", 32dip, 32dip, True), True)
+	Activity.AddMenuItem("Next", "Next")
+	
+End Sub
+
+Sub Activity_Resume
+	If CLV1.IsInitialized = False Then
+		Return
+	End If
+	If CLV1.Size =  0 Then
+		fillTheData
+	End If
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Sub fillTheData()
+	
+	Dim bitmaps As List = Array("pexels-photo-446811.jpeg", "pexels-photo-571195.jpeg", _
+		"pexels-photo-736212.jpeg", "pexels-photo-592798.jpeg")
+	For i = 0 To 100
+		Dim content As String = $"Lorem ipsum dolor sit amet,
+			consectetur adipiscing elit, 
+			sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+			Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."$
+		Dim idx As Int = i Mod bitmaps.Size
+		Dim cd As CardData
+		cd.Initialize
+		cd.Title = $"This is item #${i}"$
+		cd.Content = content
+		cd.BitmapFile = bitmaps.Get(idx)
+		CLV1.Add(CreateItem(CLV1.AsView.Width, $"This is item #${i}"$, bitmaps.Get(idx), content), cd)
+	Next
+End Sub
+
+Sub Button1_Click
+	xui.MsgboxAsync("Hello world!", "B4X")
+End Sub
+
+Sub Next_Click
+	StartActivity(LazyLoadingPage)
+End Sub
+
+Private Sub CreateItem(Width As Int, Title As String, Image As String, Content As String) As Panel
+	Dim p As B4XView = xui.CreatePanel("")
+	Dim height As Int = 280dip
+	If GetDeviceLayoutValues.ApproximateScreenSize < 4.5 Then height = 310dip
+	p.SetLayoutAnimated(0, 0, 0, Width, height)
+	p.LoadLayout("Card1")
+	
+	lblTitle.Text = Title
+	lblContent.Text = Content
+	SetColorStateList(lblAction1, xui.Color_LightGray, lblAction1.TextColor)
+	SetColorStateList(lblAction2, xui.Color_LightGray, lblAction2.TextColor)
+	ImageView1.SetBitmap(xui.LoadBitmapResize(File.DirAssets, Image, ImageView1.Width, ImageView1.Height, True))
+	Return p
+End Sub
+
+Sub CLV1_VisibleRangeChanged (FirstIndex As Int, LastIndex As Int)
+	Dim ExtraSize As Int = 20
+	For i = 0 To CLV1.Size - 1
+		Dim p As B4XView = CLV1.GetPanel(i)
+		If i > FirstIndex - ExtraSize And i < LastIndex + ExtraSize Then
+			'visible+
+			If p.NumberOfViews = 0 Then
+				Dim cd As CardData = CLV1.GetValue(i)
+				p.LoadLayout("Card1")
+				lblTitle.Text = cd.Title
+				lblContent.Text = cd.Content
+				SetColorStateList(lblAction1, xui.Color_LightGray, lblAction1.TextColor)
+				SetColorStateList(lblAction2, xui.Color_LightGray, lblAction2.TextColor)
+				ImageView1.SetBitmap(xui.LoadBitmapResize(File.DirAssets, cd.BitmapFile, ImageView1.Width, ImageView1.Height, True))
+			End If
+		Else
+			'not visible
+			If p.NumberOfViews > 0 Then
+				p.RemoveAllViews '<--- remove the layout
+			End If
+		End If
+	Next
+End Sub
+
+Sub lblAction1_Click
+	Dim index As Int = CLV1.GetItemFromView(Sender)
+	Log($"Action 1 clicked. Index: ${index}"$)
+End Sub
+
+Sub lblAction2_Click
+	Dim index As Int = CLV1.GetItemFromView(Sender)
+	Log($"Action 2 clicked. Index: ${index}"$)
+End Sub
+
+Sub SetColorStateList(Btn As Label,Pressed As Int,Enabled As Int)
+	Dim States(2,1) As Int
+	States(0,0) = 16842919    'Pressed
+	States(1,0) = 16842910    'Enabled
+	Dim CSL As JavaObject
+	CSL.InitializeNewInstance("android.content.res.ColorStateList",Array(States,Array As Int(Pressed, Enabled)))
+	Dim B1 As JavaObject = Btn
+	B1.RunMethod("setTextColor",Array As Object(CSL))
+End Sub
