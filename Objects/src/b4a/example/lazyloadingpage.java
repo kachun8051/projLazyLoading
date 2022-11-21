@@ -358,115 +358,69 @@ public b4a.example.starter _starter = null;
 public b4a.example.svcproduction _svcproduction = null;
 public b4a.example.modcommon _modcommon = null;
 public b4a.example.httputils2service _httputils2service = null;
-public static void  _activity_create(boolean _firsttime) throws Exception{
+public static String  _activity_create(boolean _firsttime) throws Exception{
 RDebugUtils.currentModule="lazyloadingpage";
 if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_create", false))
-	 {Debug.delegate(mostCurrent.activityBA, "activity_create", new Object[] {_firsttime}); return;}
-ResumableSub_Activity_Create rsub = new ResumableSub_Activity_Create(null,_firsttime);
-rsub.resume(processBA, null);
-}
-public static class ResumableSub_Activity_Create extends BA.ResumableSub {
-public ResumableSub_Activity_Create(b4a.example.lazyloadingpage parent,boolean _firsttime) {
-this.parent = parent;
-this._firsttime = _firsttime;
-}
-b4a.example.lazyloadingpage parent;
-boolean _firsttime;
-anywheresoftware.b4a.objects.collections.Map _mapres = null;
-
-@Override
-public void resume(BA ba, Object[] result) throws Exception{
-RDebugUtils.currentModule="lazyloadingpage";
-
-    while (true) {
-        switch (state) {
-            case -1:
-return;
-
-case 0:
-//C
-this.state = 1;
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "activity_create", new Object[] {_firsttime}));}
+RDebugUtils.currentLine=1376256;
+ //BA.debugLineNum = 1376256;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
 RDebugUtils.currentLine=1376259;
  //BA.debugLineNum = 1376259;BA.debugLine="Activity.LoadLayout(\"1\")";
-parent.mostCurrent._activity.LoadLayout("1",mostCurrent.activityBA);
+mostCurrent._activity.LoadLayout("1",mostCurrent.activityBA);
 RDebugUtils.currentLine=1376260;
- //BA.debugLineNum = 1376260;BA.debugLine="If lstOfProduction.IsInitialized = False Then";
-if (true) break;
-
-case 1:
-//if
-this.state = 4;
-if (parent.mostCurrent._lstofproduction.IsInitialized()==anywheresoftware.b4a.keywords.Common.False) { 
-this.state = 3;
-}if (true) break;
-
-case 3:
-//C
-this.state = 4;
+ //BA.debugLineNum = 1376260;BA.debugLine="Activity.Title = \"Production Data\"";
+mostCurrent._activity.setTitle(BA.ObjectToCharSequence("Production Data"));
 RDebugUtils.currentLine=1376261;
- //BA.debugLineNum = 1376261;BA.debugLine="sendQueryIntent(\"\")";
-_sendqueryintent("");
+ //BA.debugLineNum = 1376261;BA.debugLine="If lstOfProduction.IsInitialized = False Then";
+if (mostCurrent._lstofproduction.IsInitialized()==anywheresoftware.b4a.keywords.Common.False) { 
 RDebugUtils.currentLine=1376262;
- //BA.debugLineNum = 1376262;BA.debugLine="Wait For getQueryResponse(mapRes As Map)";
-anywheresoftware.b4a.keywords.Common.WaitFor("getqueryresponse", processBA, new anywheresoftware.b4a.shell.DebugResumableSub.DelegatableResumableSub(this, "lazyloadingpage", "activity_create"), null);
-this.state = 5;
-return;
-case 5:
-//C
-this.state = 4;
-_mapres = (anywheresoftware.b4a.objects.collections.Map) result[0];
-;
- if (true) break;
-
-case 4:
-//C
-this.state = -1;
-;
+ //BA.debugLineNum = 1376262;BA.debugLine="ProgressDialogShow2(\"Production data loading...\"";
+anywheresoftware.b4a.keywords.Common.ProgressDialogShow2(mostCurrent.activityBA,BA.ObjectToCharSequence("Production data loading..."),anywheresoftware.b4a.keywords.Common.True);
+RDebugUtils.currentLine=1376263;
+ //BA.debugLineNum = 1376263;BA.debugLine="sendQueryIntent(\"\")";
+_sendqueryintent("");
+ };
 RDebugUtils.currentLine=1376266;
  //BA.debugLineNum = 1376266;BA.debugLine="End Sub";
-if (true) break;
-
-            }
-        }
-    }
+return "";
 }
 public static String  _sendqueryintent(String _datecode) throws Exception{
 RDebugUtils.currentModule="lazyloadingpage";
 if (Debug.shouldDelegate(mostCurrent.activityBA, "sendqueryintent", false))
 	 {return ((String) Debug.delegate(mostCurrent.activityBA, "sendqueryintent", new Object[] {_datecode}));}
 anywheresoftware.b4a.objects.IntentWrapper _inte = null;
-RDebugUtils.currentLine=8257536;
- //BA.debugLineNum = 8257536;BA.debugLine="Private Sub sendQueryIntent(datecode As String)";
-RDebugUtils.currentLine=8257537;
- //BA.debugLineNum = 8257537;BA.debugLine="If datecode = \"\" Then";
+RDebugUtils.currentLine=1966080;
+ //BA.debugLineNum = 1966080;BA.debugLine="Private Sub sendQueryIntent(datecode As String)";
+RDebugUtils.currentLine=1966081;
+ //BA.debugLineNum = 1966081;BA.debugLine="If datecode = \"\" Then";
 if ((_datecode).equals("")) { 
-RDebugUtils.currentLine=8257538;
- //BA.debugLineNum = 8257538;BA.debugLine="datecode = getNowDateCode";
+RDebugUtils.currentLine=1966082;
+ //BA.debugLineNum = 1966082;BA.debugLine="datecode = getNowDateCode";
 _datecode = _getnowdatecode();
  };
-RDebugUtils.currentLine=8257540;
- //BA.debugLineNum = 8257540;BA.debugLine="Dim inte As Intent";
+RDebugUtils.currentLine=1966084;
+ //BA.debugLineNum = 1966084;BA.debugLine="Dim inte As Intent";
 _inte = new anywheresoftware.b4a.objects.IntentWrapper();
-RDebugUtils.currentLine=8257541;
- //BA.debugLineNum = 8257541;BA.debugLine="inte.Initialize(\"\", \"\")";
+RDebugUtils.currentLine=1966085;
+ //BA.debugLineNum = 1966085;BA.debugLine="inte.Initialize(\"\", \"\")";
 _inte.Initialize("","");
-RDebugUtils.currentLine=8257542;
- //BA.debugLineNum = 8257542;BA.debugLine="inte.SetComponent(Application.PackageName & \"/.sv";
+RDebugUtils.currentLine=1966086;
+ //BA.debugLineNum = 1966086;BA.debugLine="inte.SetComponent(Application.PackageName & \"/.sv";
 _inte.SetComponent(anywheresoftware.b4a.keywords.Common.Application.getPackageName()+"/.svcproduction");
-RDebugUtils.currentLine=8257543;
- //BA.debugLineNum = 8257543;BA.debugLine="inte.PutExtra(\"sender\", \"LazyLoadingPage\")";
+RDebugUtils.currentLine=1966087;
+ //BA.debugLineNum = 1966087;BA.debugLine="inte.PutExtra(\"sender\", \"LazyLoadingPage\")";
 _inte.PutExtra("sender",(Object)("LazyLoadingPage"));
-RDebugUtils.currentLine=8257544;
- //BA.debugLineNum = 8257544;BA.debugLine="inte.PutExtra(\"task\", \"query\")";
+RDebugUtils.currentLine=1966088;
+ //BA.debugLineNum = 1966088;BA.debugLine="inte.PutExtra(\"task\", \"query\")";
 _inte.PutExtra("task",(Object)("query"));
-RDebugUtils.currentLine=8257545;
- //BA.debugLineNum = 8257545;BA.debugLine="inte.PutExtra(\"param\", datecode)";
+RDebugUtils.currentLine=1966089;
+ //BA.debugLineNum = 1966089;BA.debugLine="inte.PutExtra(\"param\", datecode)";
 _inte.PutExtra("param",(Object)(_datecode));
-RDebugUtils.currentLine=8257546;
- //BA.debugLineNum = 8257546;BA.debugLine="StartService(inte)";
+RDebugUtils.currentLine=1966090;
+ //BA.debugLineNum = 1966090;BA.debugLine="StartService(inte)";
 anywheresoftware.b4a.keywords.Common.StartService(processBA,(Object)(_inte.getObject()));
-RDebugUtils.currentLine=8257547;
- //BA.debugLineNum = 8257547;BA.debugLine="End Sub";
+RDebugUtils.currentLine=1966091;
+ //BA.debugLineNum = 1966091;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
@@ -495,51 +449,51 @@ int _extrasize = 0;
 int _i = 0;
 anywheresoftware.b4a.objects.B4XViewWrapper _p = null;
 b4a.example.starter._carddata _cd = null;
-RDebugUtils.currentLine=1638400;
- //BA.debugLineNum = 1638400;BA.debugLine="Sub CLV1_VisibleRangeChanged (FirstIndex As Int, L";
-RDebugUtils.currentLine=1638401;
- //BA.debugLineNum = 1638401;BA.debugLine="Dim ExtraSize As Int = 20";
+RDebugUtils.currentLine=1703936;
+ //BA.debugLineNum = 1703936;BA.debugLine="Sub CLV1_VisibleRangeChanged (FirstIndex As Int, L";
+RDebugUtils.currentLine=1703937;
+ //BA.debugLineNum = 1703937;BA.debugLine="Dim ExtraSize As Int = 20";
 _extrasize = (int) (20);
-RDebugUtils.currentLine=1638402;
- //BA.debugLineNum = 1638402;BA.debugLine="For i = Max(0, FirstIndex - ExtraSize) To Min(Las";
+RDebugUtils.currentLine=1703938;
+ //BA.debugLineNum = 1703938;BA.debugLine="For i = Max(0, FirstIndex - ExtraSize) To Min(Las";
 {
 final int step2 = 1;
 final int limit2 = (int) (anywheresoftware.b4a.keywords.Common.Min(_lastindex+_extrasize,mostCurrent._clv1._getsize()-1));
 _i = (int) (anywheresoftware.b4a.keywords.Common.Max(0,_firstindex-_extrasize)) ;
 for (;_i <= limit2 ;_i = _i + step2 ) {
-RDebugUtils.currentLine=1638403;
- //BA.debugLineNum = 1638403;BA.debugLine="Dim p As B4XView = CLV1.GetPanel(i)";
+RDebugUtils.currentLine=1703939;
+ //BA.debugLineNum = 1703939;BA.debugLine="Dim p As B4XView = CLV1.GetPanel(i)";
 _p = new anywheresoftware.b4a.objects.B4XViewWrapper();
 _p = mostCurrent._clv1._getpanel(_i);
-RDebugUtils.currentLine=1638404;
- //BA.debugLineNum = 1638404;BA.debugLine="If p.NumberOfViews = 0 Then";
+RDebugUtils.currentLine=1703940;
+ //BA.debugLineNum = 1703940;BA.debugLine="If p.NumberOfViews = 0 Then";
 if (_p.getNumberOfViews()==0) { 
-RDebugUtils.currentLine=1638405;
- //BA.debugLineNum = 1638405;BA.debugLine="Dim cd As CardData = CLV1.GetValue(i)";
+RDebugUtils.currentLine=1703941;
+ //BA.debugLineNum = 1703941;BA.debugLine="Dim cd As CardData = CLV1.GetValue(i)";
 _cd = (b4a.example.starter._carddata)(mostCurrent._clv1._getvalue(_i));
-RDebugUtils.currentLine=1638407;
- //BA.debugLineNum = 1638407;BA.debugLine="p.LoadLayout(\"Card1\")";
+RDebugUtils.currentLine=1703943;
+ //BA.debugLineNum = 1703943;BA.debugLine="p.LoadLayout(\"Card1\")";
 _p.LoadLayout("Card1",mostCurrent.activityBA);
-RDebugUtils.currentLine=1638408;
- //BA.debugLineNum = 1638408;BA.debugLine="lblTitle.Text = cd.Title";
+RDebugUtils.currentLine=1703944;
+ //BA.debugLineNum = 1703944;BA.debugLine="lblTitle.Text = cd.Title";
 mostCurrent._lbltitle.setText(BA.ObjectToCharSequence(_cd.Title /*String*/ ));
-RDebugUtils.currentLine=1638409;
- //BA.debugLineNum = 1638409;BA.debugLine="lblContent.Text = cd.Content";
+RDebugUtils.currentLine=1703945;
+ //BA.debugLineNum = 1703945;BA.debugLine="lblContent.Text = cd.Content";
 mostCurrent._lblcontent.setText(BA.ObjectToCharSequence(_cd.Content /*String*/ ));
-RDebugUtils.currentLine=1638410;
- //BA.debugLineNum = 1638410;BA.debugLine="SetColorStateList(lblAction1, xui.Color_LightGr";
+RDebugUtils.currentLine=1703946;
+ //BA.debugLineNum = 1703946;BA.debugLine="SetColorStateList(lblAction1, xui.Color_LightGr";
 _setcolorstatelist(mostCurrent._lblaction1,_xui.Color_LightGray,mostCurrent._lblaction1.getTextColor());
-RDebugUtils.currentLine=1638411;
- //BA.debugLineNum = 1638411;BA.debugLine="SetColorStateList(lblAction2, xui.Color_LightGr";
+RDebugUtils.currentLine=1703947;
+ //BA.debugLineNum = 1703947;BA.debugLine="SetColorStateList(lblAction2, xui.Color_LightGr";
 _setcolorstatelist(mostCurrent._lblaction2,_xui.Color_LightGray,mostCurrent._lblaction2.getTextColor());
-RDebugUtils.currentLine=1638412;
- //BA.debugLineNum = 1638412;BA.debugLine="ImageView1.SetBitmap(xui.LoadBitmapResize(File.";
+RDebugUtils.currentLine=1703948;
+ //BA.debugLineNum = 1703948;BA.debugLine="ImageView1.SetBitmap(xui.LoadBitmapResize(File.";
 mostCurrent._imageview1.SetBitmap((android.graphics.Bitmap)(_xui.LoadBitmapResize(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),_cd.BitmapFile /*String*/ ,mostCurrent._imageview1.getWidth(),mostCurrent._imageview1.getHeight(),anywheresoftware.b4a.keywords.Common.True).getObject()));
  };
  }
 };
-RDebugUtils.currentLine=1638415;
- //BA.debugLineNum = 1638415;BA.debugLine="End Sub";
+RDebugUtils.currentLine=1703951;
+ //BA.debugLineNum = 1703951;BA.debugLine="End Sub";
 return "";
 }
 public static String  _setcolorstatelist(anywheresoftware.b4a.objects.LabelWrapper _btn,int _pressed,int _enabled) throws Exception{
@@ -549,10 +503,10 @@ if (Debug.shouldDelegate(mostCurrent.activityBA, "setcolorstatelist", false))
 int[][] _states = null;
 anywheresoftware.b4j.object.JavaObject _csl = null;
 anywheresoftware.b4j.object.JavaObject _b1 = null;
-RDebugUtils.currentLine=1835008;
- //BA.debugLineNum = 1835008;BA.debugLine="Sub SetColorStateList(Btn As Label,Pressed As Int,";
-RDebugUtils.currentLine=1835009;
- //BA.debugLineNum = 1835009;BA.debugLine="Dim States(2,1) As Int";
+RDebugUtils.currentLine=1900544;
+ //BA.debugLineNum = 1900544;BA.debugLine="Sub SetColorStateList(Btn As Label,Pressed As Int,";
+RDebugUtils.currentLine=1900545;
+ //BA.debugLineNum = 1900545;BA.debugLine="Dim States(2,1) As Int";
 _states = new int[(int) (2)][];
 {
 int d0 = _states.length;
@@ -562,27 +516,27 @@ _states[i0] = new int[d1];
 }
 }
 ;
-RDebugUtils.currentLine=1835010;
- //BA.debugLineNum = 1835010;BA.debugLine="States(0,0) = 16842919    'Pressed";
+RDebugUtils.currentLine=1900546;
+ //BA.debugLineNum = 1900546;BA.debugLine="States(0,0) = 16842919    'Pressed";
 _states[(int) (0)][(int) (0)] = (int) (16842919);
-RDebugUtils.currentLine=1835011;
- //BA.debugLineNum = 1835011;BA.debugLine="States(1,0) = 16842910    'Enabled";
+RDebugUtils.currentLine=1900547;
+ //BA.debugLineNum = 1900547;BA.debugLine="States(1,0) = 16842910    'Enabled";
 _states[(int) (1)][(int) (0)] = (int) (16842910);
-RDebugUtils.currentLine=1835012;
- //BA.debugLineNum = 1835012;BA.debugLine="Dim CSL As JavaObject";
+RDebugUtils.currentLine=1900548;
+ //BA.debugLineNum = 1900548;BA.debugLine="Dim CSL As JavaObject";
 _csl = new anywheresoftware.b4j.object.JavaObject();
-RDebugUtils.currentLine=1835013;
- //BA.debugLineNum = 1835013;BA.debugLine="CSL.InitializeNewInstance(\"android.content.res.Co";
+RDebugUtils.currentLine=1900549;
+ //BA.debugLineNum = 1900549;BA.debugLine="CSL.InitializeNewInstance(\"android.content.res.Co";
 _csl.InitializeNewInstance("android.content.res.ColorStateList",new Object[]{(Object)(_states),(Object)(new int[]{_pressed,_enabled})});
-RDebugUtils.currentLine=1835014;
- //BA.debugLineNum = 1835014;BA.debugLine="Dim B1 As JavaObject = Btn";
+RDebugUtils.currentLine=1900550;
+ //BA.debugLineNum = 1900550;BA.debugLine="Dim B1 As JavaObject = Btn";
 _b1 = new anywheresoftware.b4j.object.JavaObject();
 _b1 = (anywheresoftware.b4j.object.JavaObject) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4j.object.JavaObject(), (java.lang.Object)(_btn.getObject()));
-RDebugUtils.currentLine=1835015;
- //BA.debugLineNum = 1835015;BA.debugLine="B1.RunMethod(\"setTextColor\",Array As Object(CSL))";
+RDebugUtils.currentLine=1900551;
+ //BA.debugLineNum = 1900551;BA.debugLine="B1.RunMethod(\"setTextColor\",Array As Object(CSL))";
 _b1.RunMethod("setTextColor",new Object[]{(Object)(_csl.getObject())});
-RDebugUtils.currentLine=1835016;
- //BA.debugLineNum = 1835016;BA.debugLine="End Sub";
+RDebugUtils.currentLine=1900552;
+ //BA.debugLineNum = 1900552;BA.debugLine="End Sub";
 return "";
 }
 public static String  _filllist2() throws Exception{
@@ -595,57 +549,57 @@ int _i = 0;
 String _content = "";
 b4a.example.starter._carddata _cd = null;
 anywheresoftware.b4a.objects.B4XViewWrapper _p = null;
-RDebugUtils.currentLine=1572864;
- //BA.debugLineNum = 1572864;BA.debugLine="Sub FillList2";
-RDebugUtils.currentLine=1572865;
- //BA.debugLineNum = 1572865;BA.debugLine="Dim bitmaps As List = Array(\"pexels-photo-446811.";
+RDebugUtils.currentLine=1638400;
+ //BA.debugLineNum = 1638400;BA.debugLine="Sub FillList2";
+RDebugUtils.currentLine=1638401;
+ //BA.debugLineNum = 1638401;BA.debugLine="Dim bitmaps As List = Array(\"pexels-photo-446811.";
 _bitmaps = new anywheresoftware.b4a.objects.collections.List();
 _bitmaps = anywheresoftware.b4a.keywords.Common.ArrayToList(new Object[]{(Object)("pexels-photo-446811.jpeg"),(Object)("pexels-photo-571195.jpeg"),(Object)("pexels-photo-736212.jpeg"),(Object)("pexels-photo-592798.jpeg")});
-RDebugUtils.currentLine=1572867;
- //BA.debugLineNum = 1572867;BA.debugLine="Dim n As Long = DateTime.Now";
+RDebugUtils.currentLine=1638403;
+ //BA.debugLineNum = 1638403;BA.debugLine="Dim n As Long = DateTime.Now";
 _n = anywheresoftware.b4a.keywords.Common.DateTime.getNow();
-RDebugUtils.currentLine=1572868;
- //BA.debugLineNum = 1572868;BA.debugLine="For i = 1 To 1000";
+RDebugUtils.currentLine=1638404;
+ //BA.debugLineNum = 1638404;BA.debugLine="For i = 1 To 1000";
 {
 final int step3 = 1;
 final int limit3 = (int) (1000);
 _i = (int) (1) ;
 for (;_i <= limit3 ;_i = _i + step3 ) {
-RDebugUtils.currentLine=1572869;
- //BA.debugLineNum = 1572869;BA.debugLine="Dim content As String = $\"Lorem ipsum dolor sit";
+RDebugUtils.currentLine=1638405;
+ //BA.debugLineNum = 1638405;BA.debugLine="Dim content As String = $\"Lorem ipsum dolor sit";
 _content = ("Lorem ipsum dolor sit amet,\n"+"			consectetur adipiscing elit,\n"+"			sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n"+"			Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
-RDebugUtils.currentLine=1572873;
- //BA.debugLineNum = 1572873;BA.debugLine="Dim cd As CardData";
+RDebugUtils.currentLine=1638409;
+ //BA.debugLineNum = 1638409;BA.debugLine="Dim cd As CardData";
 _cd = new b4a.example.starter._carddata();
-RDebugUtils.currentLine=1572874;
- //BA.debugLineNum = 1572874;BA.debugLine="cd.Initialize";
+RDebugUtils.currentLine=1638410;
+ //BA.debugLineNum = 1638410;BA.debugLine="cd.Initialize";
 _cd.Initialize();
-RDebugUtils.currentLine=1572875;
- //BA.debugLineNum = 1572875;BA.debugLine="cd.Title = $\"This is item #${i}\"$";
+RDebugUtils.currentLine=1638411;
+ //BA.debugLineNum = 1638411;BA.debugLine="cd.Title = $\"This is item #${i}\"$";
 _cd.Title /*String*/  = ("This is item #"+anywheresoftware.b4a.keywords.Common.SmartStringFormatter("",(Object)(_i))+"");
-RDebugUtils.currentLine=1572876;
- //BA.debugLineNum = 1572876;BA.debugLine="cd.Content = content";
+RDebugUtils.currentLine=1638412;
+ //BA.debugLineNum = 1638412;BA.debugLine="cd.Content = content";
 _cd.Content /*String*/  = _content;
-RDebugUtils.currentLine=1572877;
- //BA.debugLineNum = 1572877;BA.debugLine="cd.BitmapFile = bitmaps.Get((i - 1) Mod bitmaps.";
+RDebugUtils.currentLine=1638413;
+ //BA.debugLineNum = 1638413;BA.debugLine="cd.BitmapFile = bitmaps.Get((i - 1) Mod bitmaps.";
 _cd.BitmapFile /*String*/  = BA.ObjectToString(_bitmaps.Get((int) ((_i-1)%_bitmaps.getSize())));
-RDebugUtils.currentLine=1572878;
- //BA.debugLineNum = 1572878;BA.debugLine="Dim p As B4XView = xui.CreatePanel(\"\")";
+RDebugUtils.currentLine=1638414;
+ //BA.debugLineNum = 1638414;BA.debugLine="Dim p As B4XView = xui.CreatePanel(\"\")";
 _p = new anywheresoftware.b4a.objects.B4XViewWrapper();
 _p = _xui.CreatePanel(processBA,"");
-RDebugUtils.currentLine=1572879;
- //BA.debugLineNum = 1572879;BA.debugLine="p.SetLayoutAnimated(0, 0, 0, CLV1.AsView.Width,";
+RDebugUtils.currentLine=1638415;
+ //BA.debugLineNum = 1638415;BA.debugLine="p.SetLayoutAnimated(0, 0, 0, CLV1.AsView.Width,";
 _p.SetLayoutAnimated((int) (0),(int) (0),(int) (0),mostCurrent._clv1._asview().getWidth(),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (280)));
-RDebugUtils.currentLine=1572880;
- //BA.debugLineNum = 1572880;BA.debugLine="CLV1.Add(p, cd)";
+RDebugUtils.currentLine=1638416;
+ //BA.debugLineNum = 1638416;BA.debugLine="CLV1.Add(p, cd)";
 mostCurrent._clv1._add(_p,(Object)(_cd));
  }
 };
-RDebugUtils.currentLine=1572882;
- //BA.debugLineNum = 1572882;BA.debugLine="Log(\"Loading cards took: \" & (DateTime.Now - n) &";
-anywheresoftware.b4a.keywords.Common.LogImpl("01572882","Loading cards took: "+BA.NumberToString((anywheresoftware.b4a.keywords.Common.DateTime.getNow()-_n))+"ms",0);
-RDebugUtils.currentLine=1572883;
- //BA.debugLineNum = 1572883;BA.debugLine="End Sub";
+RDebugUtils.currentLine=1638418;
+ //BA.debugLineNum = 1638418;BA.debugLine="Log(\"Loading cards took: \" & (DateTime.Now - n) &";
+anywheresoftware.b4a.keywords.Common.LogImpl("21638418","Loading cards took: "+BA.NumberToString((anywheresoftware.b4a.keywords.Common.DateTime.getNow()-_n))+"ms",0);
+RDebugUtils.currentLine=1638419;
+ //BA.debugLineNum = 1638419;BA.debugLine="End Sub";
 return "";
 }
 public static String  _getnowdatecode() throws Exception{
@@ -655,42 +609,75 @@ if (Debug.shouldDelegate(mostCurrent.activityBA, "getnowdatecode", false))
 long _dtnow = 0L;
 String _df = "";
 String _daycode = "";
-RDebugUtils.currentLine=9306112;
- //BA.debugLineNum = 9306112;BA.debugLine="Private Sub getNowDateCode() As String";
-RDebugUtils.currentLine=9306113;
- //BA.debugLineNum = 9306113;BA.debugLine="Dim dtNow As Long = DateTime.Now";
+RDebugUtils.currentLine=2031616;
+ //BA.debugLineNum = 2031616;BA.debugLine="Private Sub getNowDateCode() As String";
+RDebugUtils.currentLine=2031617;
+ //BA.debugLineNum = 2031617;BA.debugLine="Dim dtNow As Long = DateTime.Now";
 _dtnow = anywheresoftware.b4a.keywords.Common.DateTime.getNow();
-RDebugUtils.currentLine=9306115;
- //BA.debugLineNum = 9306115;BA.debugLine="Dim df As String = DateTime.DateFormat";
+RDebugUtils.currentLine=2031619;
+ //BA.debugLineNum = 2031619;BA.debugLine="Dim df As String = DateTime.DateFormat";
 _df = anywheresoftware.b4a.keywords.Common.DateTime.getDateFormat();
-RDebugUtils.currentLine=9306116;
- //BA.debugLineNum = 9306116;BA.debugLine="DateTime.DateFormat = \"yyyyMMdd\"";
+RDebugUtils.currentLine=2031620;
+ //BA.debugLineNum = 2031620;BA.debugLine="DateTime.DateFormat = \"yyyyMMdd\"";
 anywheresoftware.b4a.keywords.Common.DateTime.setDateFormat("yyyyMMdd");
-RDebugUtils.currentLine=9306117;
- //BA.debugLineNum = 9306117;BA.debugLine="Dim daycode As String";
+RDebugUtils.currentLine=2031621;
+ //BA.debugLineNum = 2031621;BA.debugLine="Dim daycode As String";
 _daycode = "";
-RDebugUtils.currentLine=9306118;
- //BA.debugLineNum = 9306118;BA.debugLine="Try";
-try {RDebugUtils.currentLine=9306119;
- //BA.debugLineNum = 9306119;BA.debugLine="daycode = DateTime.Date(dtNow)";
+RDebugUtils.currentLine=2031622;
+ //BA.debugLineNum = 2031622;BA.debugLine="Try";
+try {RDebugUtils.currentLine=2031623;
+ //BA.debugLineNum = 2031623;BA.debugLine="daycode = DateTime.Date(dtNow)";
 _daycode = anywheresoftware.b4a.keywords.Common.DateTime.Date(_dtnow);
  } 
        catch (Exception e8) {
-			processBA.setLastException(e8);RDebugUtils.currentLine=9306121;
- //BA.debugLineNum = 9306121;BA.debugLine="Log(LastException)";
-anywheresoftware.b4a.keywords.Common.LogImpl("09306121",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
-RDebugUtils.currentLine=9306122;
- //BA.debugLineNum = 9306122;BA.debugLine="daycode = \"\"";
+			processBA.setLastException(e8);RDebugUtils.currentLine=2031625;
+ //BA.debugLineNum = 2031625;BA.debugLine="Log(LastException)";
+anywheresoftware.b4a.keywords.Common.LogImpl("22031625",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
+RDebugUtils.currentLine=2031626;
+ //BA.debugLineNum = 2031626;BA.debugLine="daycode = \"\"";
 _daycode = "";
  };
-RDebugUtils.currentLine=9306125;
- //BA.debugLineNum = 9306125;BA.debugLine="DateTime.DateFormat = df";
+RDebugUtils.currentLine=2031629;
+ //BA.debugLineNum = 2031629;BA.debugLine="DateTime.DateFormat = df";
 anywheresoftware.b4a.keywords.Common.DateTime.setDateFormat(_df);
-RDebugUtils.currentLine=9306126;
- //BA.debugLineNum = 9306126;BA.debugLine="Return daycode";
+RDebugUtils.currentLine=2031630;
+ //BA.debugLineNum = 2031630;BA.debugLine="Return daycode";
 if (true) return _daycode;
-RDebugUtils.currentLine=9306127;
- //BA.debugLineNum = 9306127;BA.debugLine="End Sub";
+RDebugUtils.currentLine=2031631;
+ //BA.debugLineNum = 2031631;BA.debugLine="End Sub";
+return "";
+}
+public static String  _getqueryresponse(anywheresoftware.b4a.objects.collections.Map _mapres) throws Exception{
+RDebugUtils.currentModule="lazyloadingpage";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "getqueryresponse", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "getqueryresponse", new Object[] {_mapres}));}
+RDebugUtils.currentLine=1572864;
+ //BA.debugLineNum = 1572864;BA.debugLine="Private Sub getQueryResponse(mapRes As Map)";
+RDebugUtils.currentLine=1572865;
+ //BA.debugLineNum = 1572865;BA.debugLine="ProgressDialogHide";
+anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
+RDebugUtils.currentLine=1572866;
+ //BA.debugLineNum = 1572866;BA.debugLine="If mapRes.IsInitialized = False Then";
+if (_mapres.IsInitialized()==anywheresoftware.b4a.keywords.Common.False) { 
+RDebugUtils.currentLine=1572867;
+ //BA.debugLineNum = 1572867;BA.debugLine="Return";
+if (true) return "";
+ };
+RDebugUtils.currentLine=1572869;
+ //BA.debugLineNum = 1572869;BA.debugLine="If mapRes.Get(\"issuccess\").As(Boolean) = False Th";
+if ((BA.ObjectToBoolean(_mapres.Get((Object)("issuccess"))))==anywheresoftware.b4a.keywords.Common.False) { 
+RDebugUtils.currentLine=1572870;
+ //BA.debugLineNum = 1572870;BA.debugLine="Msgbox2Async(mapRes.Get(\"errmsg\"), \"Query Error\"";
+anywheresoftware.b4a.keywords.Common.Msgbox2Async(BA.ObjectToCharSequence(_mapres.Get((Object)("errmsg"))),BA.ObjectToCharSequence("Query Error"),"OK","","",(anywheresoftware.b4a.objects.drawable.CanvasWrapper.BitmapWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.drawable.CanvasWrapper.BitmapWrapper(), (android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null)),processBA,anywheresoftware.b4a.keywords.Common.True);
+RDebugUtils.currentLine=1572871;
+ //BA.debugLineNum = 1572871;BA.debugLine="Return";
+if (true) return "";
+ };
+RDebugUtils.currentLine=1572873;
+ //BA.debugLineNum = 1572873;BA.debugLine="lstOfProduction = mapRes.Get(\"datalist\").As(List)";
+mostCurrent._lstofproduction = ((anywheresoftware.b4a.objects.collections.List) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.collections.List(), (java.util.List)(_mapres.Get((Object)("datalist")))));
+RDebugUtils.currentLine=1572874;
+ //BA.debugLineNum = 1572874;BA.debugLine="End Sub";
 return "";
 }
 public static String  _lblaction1_click() throws Exception{
@@ -698,16 +685,16 @@ RDebugUtils.currentModule="lazyloadingpage";
 if (Debug.shouldDelegate(mostCurrent.activityBA, "lblaction1_click", false))
 	 {return ((String) Debug.delegate(mostCurrent.activityBA, "lblaction1_click", null));}
 int _index = 0;
-RDebugUtils.currentLine=1703936;
- //BA.debugLineNum = 1703936;BA.debugLine="Sub lblAction1_Click";
-RDebugUtils.currentLine=1703937;
- //BA.debugLineNum = 1703937;BA.debugLine="Dim index As Int = CLV1.GetItemFromView(Sender)";
+RDebugUtils.currentLine=1769472;
+ //BA.debugLineNum = 1769472;BA.debugLine="Sub lblAction1_Click";
+RDebugUtils.currentLine=1769473;
+ //BA.debugLineNum = 1769473;BA.debugLine="Dim index As Int = CLV1.GetItemFromView(Sender)";
 _index = mostCurrent._clv1._getitemfromview((anywheresoftware.b4a.objects.B4XViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.B4XViewWrapper(), (java.lang.Object)(anywheresoftware.b4a.keywords.Common.Sender(mostCurrent.activityBA))));
-RDebugUtils.currentLine=1703938;
- //BA.debugLineNum = 1703938;BA.debugLine="Log($\"Action 1 clicked. Index: ${index}\"$)";
-anywheresoftware.b4a.keywords.Common.LogImpl("01703938",("Action 1 clicked. Index: "+anywheresoftware.b4a.keywords.Common.SmartStringFormatter("",(Object)(_index))+""),0);
-RDebugUtils.currentLine=1703939;
- //BA.debugLineNum = 1703939;BA.debugLine="End Sub";
+RDebugUtils.currentLine=1769474;
+ //BA.debugLineNum = 1769474;BA.debugLine="Log($\"Action 1 clicked. Index: ${index}\"$)";
+anywheresoftware.b4a.keywords.Common.LogImpl("21769474",("Action 1 clicked. Index: "+anywheresoftware.b4a.keywords.Common.SmartStringFormatter("",(Object)(_index))+""),0);
+RDebugUtils.currentLine=1769475;
+ //BA.debugLineNum = 1769475;BA.debugLine="End Sub";
 return "";
 }
 public static String  _lblaction2_click() throws Exception{
@@ -715,16 +702,16 @@ RDebugUtils.currentModule="lazyloadingpage";
 if (Debug.shouldDelegate(mostCurrent.activityBA, "lblaction2_click", false))
 	 {return ((String) Debug.delegate(mostCurrent.activityBA, "lblaction2_click", null));}
 int _index = 0;
-RDebugUtils.currentLine=1769472;
- //BA.debugLineNum = 1769472;BA.debugLine="Sub lblAction2_Click";
-RDebugUtils.currentLine=1769473;
- //BA.debugLineNum = 1769473;BA.debugLine="Dim index As Int = CLV1.GetItemFromView(Sender)";
+RDebugUtils.currentLine=1835008;
+ //BA.debugLineNum = 1835008;BA.debugLine="Sub lblAction2_Click";
+RDebugUtils.currentLine=1835009;
+ //BA.debugLineNum = 1835009;BA.debugLine="Dim index As Int = CLV1.GetItemFromView(Sender)";
 _index = mostCurrent._clv1._getitemfromview((anywheresoftware.b4a.objects.B4XViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.B4XViewWrapper(), (java.lang.Object)(anywheresoftware.b4a.keywords.Common.Sender(mostCurrent.activityBA))));
-RDebugUtils.currentLine=1769474;
- //BA.debugLineNum = 1769474;BA.debugLine="Log($\"Action 2 clicked. Index: ${index}\"$)";
-anywheresoftware.b4a.keywords.Common.LogImpl("01769474",("Action 2 clicked. Index: "+anywheresoftware.b4a.keywords.Common.SmartStringFormatter("",(Object)(_index))+""),0);
-RDebugUtils.currentLine=1769475;
- //BA.debugLineNum = 1769475;BA.debugLine="End Sub";
+RDebugUtils.currentLine=1835010;
+ //BA.debugLineNum = 1835010;BA.debugLine="Log($\"Action 2 clicked. Index: ${index}\"$)";
+anywheresoftware.b4a.keywords.Common.LogImpl("21835010",("Action 2 clicked. Index: "+anywheresoftware.b4a.keywords.Common.SmartStringFormatter("",(Object)(_index))+""),0);
+RDebugUtils.currentLine=1835011;
+ //BA.debugLineNum = 1835011;BA.debugLine="End Sub";
 return "";
 }
 }

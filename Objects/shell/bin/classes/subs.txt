@@ -80,11 +80,11 @@ starter,service_taskremoved,0,0,22,24
 
 
 
-lazyloadingpage,activity_create,1,1,26,36
+lazyloadingpage,activity_create,1,0,26,36
 ,clv1,,lstofproduction
 ,clv1
 ,sendqueryintent,,getnowdatecode
-lazyloadingpage,sendqueryintent,0,1,104,115
+lazyloadingpage,sendqueryintent,0,0,116,127
 
 
 ,getnowdatecode
@@ -96,31 +96,35 @@ lazyloadingpage,activity_resume,0,0,38,40
 
 
 
-lazyloadingpage,clv1_visiblerangechanged,1,0,67,82
+lazyloadingpage,clv1_visiblerangechanged,1,0,79,94
 ,clv1,,imageview1,,lblaction1,,lblaction2,,lblcontent,,lbltitle,,xui
 ,imageview1,,lblaction1,,lblaction2,,lblcontent,,lbltitle
 ,setcolorstatelist
-lazyloadingpage,setcolorstatelist,0,0,94,102
+lazyloadingpage,setcolorstatelist,0,0,106,114
 
 
 
-lazyloadingpage,filllist2,0,0,46,65
+lazyloadingpage,filllist2,0,0,58,77
 ,xui,,clv1
 
 
-lazyloadingpage,getnowdatecode,0,0,117,132
+lazyloadingpage,getnowdatecode,0,0,129,144
 
 
+
+lazyloadingpage,getqueryresponse,0,0,46,56
+,lstofproduction
+,lstofproduction
 
 lazyloadingpage,globals,0,1,13,24
 
 
 
-lazyloadingpage,lblaction1_click,0,0,84,87
+lazyloadingpage,lblaction1_click,0,0,96,99
 ,clv1
 
 
-lazyloadingpage,lblaction2_click,0,0,89,92
+lazyloadingpage,lblaction2_click,0,0,101,104
 ,clv1
 
 
@@ -132,7 +136,7 @@ svcproduction,getaddoneday,0,0,100,122
 
 
 
-svcproduction,getthisday,0,1,92,97
+svcproduction,getthisday,0,0,92,97
 
 
 
@@ -152,7 +156,7 @@ svcproduction,sendback4appreq,0,0,47,53
 ,job,modcommon,appid,modcommon,apikey,modcommon,masterkey
 
 httpjob,initialize,httpjob,download,httpjob,getrequest,httpjob,addscheme
-svcproduction,service_create,0,1,14,17
+svcproduction,service_create,0,0,14,17
 ,lstofproduction,modcommon,appid,modcommon,apikey,modcommon,masterkey
 modcommon,appid,modcommon,apikey,modcommon,masterkey
 modcommon,initparams

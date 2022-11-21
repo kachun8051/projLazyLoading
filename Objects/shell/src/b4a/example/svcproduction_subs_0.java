@@ -56,7 +56,7 @@ _onedayadded = RemoteObject.concat(_date1,RemoteObject.createImmutable(" 00:00:0
        catch (Exception e14) {
 			BA.rdebugUtils.runVoidMethod("setLastException",svcproduction.processBA, e14.toString()); BA.debugLineNum = 115;BA.debugLine="Log(LastException)";
 Debug.ShouldStop(262144);
-svcproduction.mostCurrent.__c.runVoidMethod ("LogImpl","06684687",BA.ObjectToString(svcproduction.mostCurrent.__c.runMethod(false,"LastException",svcproduction.processBA)),0);
+svcproduction.mostCurrent.__c.runVoidMethod ("LogImpl","22621455",BA.ObjectToString(svcproduction.mostCurrent.__c.runMethod(false,"LastException",svcproduction.processBA)),0);
  BA.debugLineNum = 116;BA.debugLine="OneDayAdded = \"\"";
 Debug.ShouldStop(524288);
 _onedayadded = BA.ObjectToString("");Debug.locals.put("OneDayAdded", _onedayadded);
@@ -132,7 +132,7 @@ Debug.ShouldStop(1048576);
 _url = RemoteObject.concat(RemoteObject.createImmutable("https://parseapi.back4app.com/classes/Production?"),(RemoteObject.concat(RemoteObject.createImmutable("where={\"packingdt\":{\""),svcproduction.mostCurrent.__c.runMethod(true,"SmartStringFormatter",(Object)(BA.ObjectToString("")),(Object)((svcproduction.mostCurrent.__c.runMethod(true,"Chr",(Object)(BA.numberCast(int.class, 36)))))),RemoteObject.createImmutable("gt\":\""),svcproduction.mostCurrent.__c.runMethod(true,"SmartStringFormatter",(Object)(BA.ObjectToString("")),(Object)((_dt1))),RemoteObject.createImmutable("\",\""),svcproduction.mostCurrent.__c.runMethod(true,"SmartStringFormatter",(Object)(BA.ObjectToString("")),(Object)((svcproduction.mostCurrent.__c.runMethod(true,"Chr",(Object)(BA.numberCast(int.class, 36)))))),RemoteObject.createImmutable("lt\":\""),svcproduction.mostCurrent.__c.runMethod(true,"SmartStringFormatter",(Object)(BA.ObjectToString("")),(Object)((_dt2))),RemoteObject.createImmutable("\"}}"))),(RemoteObject.createImmutable("&order=itemnum")));Debug.locals.put("url", _url);Debug.locals.put("url", _url);
  BA.debugLineNum = 88;BA.debugLine="Log(url)";
 Debug.ShouldStop(8388608);
-svcproduction.mostCurrent.__c.runVoidMethod ("LogImpl","06094860",_url,0);
+svcproduction.mostCurrent.__c.runVoidMethod ("LogImpl","22490380",_url,0);
  BA.debugLineNum = 89;BA.debugLine="Return url";
 Debug.ShouldStop(16777216);
 if (true) return _url;
@@ -164,7 +164,7 @@ Debug.ShouldStop(16777216);
 _jresponse = _j.runClassMethod (b4a.example.httpjob.class, "_getstring" /*RemoteObject*/ );Debug.locals.put("jResponse", _jresponse);Debug.locals.put("jResponse", _jresponse);
  BA.debugLineNum = 58;BA.debugLine="Log(jResponse)";
 Debug.ShouldStop(33554432);
-svcproduction.mostCurrent.__c.runVoidMethod ("LogImpl","07208963",_jresponse,0);
+svcproduction.mostCurrent.__c.runVoidMethod ("LogImpl","22424835",_jresponse,0);
  BA.debugLineNum = 59;BA.debugLine="Try";
 Debug.ShouldStop(67108864);
 try { BA.debugLineNum = 60;BA.debugLine="Dim jparser As JSONParser";
@@ -188,7 +188,7 @@ svcproduction.mostCurrent.__c.runVoidMethod ("CallSubDelayed2",svcproduction.pro
        catch (Exception e11) {
 			BA.rdebugUtils.runVoidMethod("setLastException",svcproduction.processBA, e11.toString()); BA.debugLineNum = 66;BA.debugLine="Log(LastException)";
 Debug.ShouldStop(2);
-svcproduction.mostCurrent.__c.runVoidMethod ("LogImpl","07208971",BA.ObjectToString(svcproduction.mostCurrent.__c.runMethod(false,"LastException",svcproduction.processBA)),0);
+svcproduction.mostCurrent.__c.runVoidMethod ("LogImpl","22424843",BA.ObjectToString(svcproduction.mostCurrent.__c.runMethod(false,"LastException",svcproduction.processBA)),0);
  BA.debugLineNum = 67;BA.debugLine="CallSubDelayed2(mySender, \"getQueryResponse\", C";
 Debug.ShouldStop(4);
 svcproduction.mostCurrent.__c.runVoidMethod ("CallSubDelayed2",svcproduction.processBA,(Object)((svcproduction._mysender)),(Object)(BA.ObjectToString("getQueryResponse")),(Object)((svcproduction.mostCurrent.__c.runMethod(false, "createMap", (Object)(new RemoteObject[] {RemoteObject.createImmutable(("issuccess")),(svcproduction.mostCurrent.__c.getField(true,"False")),RemoteObject.createImmutable(("errmsg")),(svcproduction.mostCurrent.__c.runMethod(false,"LastException",svcproduction.processBA).runMethod(true,"getMessage"))})))));

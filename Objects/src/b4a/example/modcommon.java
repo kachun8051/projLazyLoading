@@ -24,19 +24,19 @@ public static String  _initparams(anywheresoftware.b4a.BA _ba) throws Exception{
 RDebugUtils.currentModule="modcommon";
 if (Debug.shouldDelegate(null, "initparams", false))
 	 {return ((String) Debug.delegate(null, "initparams", new Object[] {_ba}));}
-RDebugUtils.currentLine=4653056;
- //BA.debugLineNum = 4653056;BA.debugLine="Public Sub initParams()";
-RDebugUtils.currentLine=4653057;
- //BA.debugLineNum = 4653057;BA.debugLine="appid = \"5vUD5SzypdFDZfa7Sxjya1yLliHMAJ52ML3sqBf6";
+RDebugUtils.currentLine=2752512;
+ //BA.debugLineNum = 2752512;BA.debugLine="Public Sub initParams()";
+RDebugUtils.currentLine=2752513;
+ //BA.debugLineNum = 2752513;BA.debugLine="appid = \"5vUD5SzypdFDZfa7Sxjya1yLliHMAJ52ML3sqBf6";
 _appid = "5vUD5SzypdFDZfa7Sxjya1yLliHMAJ52ML3sqBf6";
-RDebugUtils.currentLine=4653058;
- //BA.debugLineNum = 4653058;BA.debugLine="apikey = \"sgyDDR9YYlvTfkZv1datnUu75nhnnjqejm2yMFN";
+RDebugUtils.currentLine=2752514;
+ //BA.debugLineNum = 2752514;BA.debugLine="apikey = \"sgyDDR9YYlvTfkZv1datnUu75nhnnjqejm2yMFN";
 _apikey = "sgyDDR9YYlvTfkZv1datnUu75nhnnjqejm2yMFNL";
-RDebugUtils.currentLine=4653059;
- //BA.debugLineNum = 4653059;BA.debugLine="masterkey = \"xFPWpeqIXuGXBek7CljLVsRH72TjvQen5Rd9";
+RDebugUtils.currentLine=2752515;
+ //BA.debugLineNum = 2752515;BA.debugLine="masterkey = \"xFPWpeqIXuGXBek7CljLVsRH72TjvQen5Rd9";
 _masterkey = "xFPWpeqIXuGXBek7CljLVsRH72TjvQen5Rd9XxiF";
-RDebugUtils.currentLine=4653060;
- //BA.debugLineNum = 4653060;BA.debugLine="End Sub";
+RDebugUtils.currentLine=2752516;
+ //BA.debugLineNum = 2752516;BA.debugLine="End Sub";
 return "";
 }
 }

@@ -33,10 +33,10 @@ Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
 	'Activity.LoadLayout("Layout1")
 	Activity.LoadLayout("1")
+	Activity.Title = "Production Data"
 	If lstOfProduction.IsInitialized = False Then
-		sendQueryIntent("")
-		Wait For getQueryResponse(mapRes As Map)
-		
+		ProgressDialogShow2("Production data loading...", True)
+		sendQueryIntent("")		
 	End If
 	' FillList2
 End Sub
@@ -47,6 +47,18 @@ End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
 
+End Sub
+
+Private Sub getQueryResponse(mapRes As Map)
+	ProgressDialogHide
+	If mapRes.IsInitialized = False Then
+		Return
+	End If
+	If mapRes.Get("issuccess").As(Boolean) = False Then
+		Msgbox2Async(mapRes.Get("errmsg"), "Query Error", "OK", "", "", Null, True)
+		Return
+	End If
+	lstOfProduction = mapRes.Get("datalist").As(List)
 End Sub
 
 Sub FillList2
