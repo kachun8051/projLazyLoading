@@ -1,14 +1,18 @@
-﻿Build1=Default,b4a.example
+﻿Build1=Default,b4a.example.lazyloading
 File1=1.bal
-File2=card1.bal
-File3=ic_cached_white_24dp.png
-File4=ic_done_white_24dp.png
-File5=Layout.bal
-File6=pexels-photo-446811.jpeg
-File7=pexels-photo-571195.jpeg
-File8=pexels-photo-592798.jpeg
-File9=pexels-photo-736212.jpeg
+File10=pexels-photo-736212.jpeg
+File11=RowLayout.bal
+File2=2.bal
+File3=card1.bal
+File4=ic_cached_white_24dp.png
+File5=ic_done_white_24dp.png
+File6=Layout.bal
+File7=pexels-photo-446811.jpeg
+File8=pexels-photo-571195.jpeg
+File9=pexels-photo-592798.jpeg
 FileGroup1=Default Group
+FileGroup10=Default Group
+FileGroup11=Default Group
 FileGroup2=Default Group
 FileGroup3=Default Group
 FileGroup4=Default Group
@@ -19,23 +23,26 @@ FileGroup8=Default Group
 FileGroup9=Default Group
 Group=Default Group
 Library1=core
-Library2=javaobject
-Library3=okhttputils2
-Library4=xcustomlistview
-Library5=xui
-Library6=json
+Library2=dialogs
+Library3=javaobject
+Library4=json
+Library5=okhttputils2
+Library6=xcustomlistview
+Library7=xui
+Library8=viewsex
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
-Module1=LazyLoadingPage
-Module2=modCommon
-Module3=Starter
-Module4=svcProduction
-NumberOfFiles=9
-NumberOfLibraries=6
-NumberOfModules=4
+Module1=CLVSwipe
+Module2=LazyLoadingPage
+Module3=modCommon
+Module4=Starter
+Module5=svcProduction
+NumberOfFiles=11
+NumberOfLibraries=8
+NumberOfModules=5
 Version=11.8
 @EndOfDesignText@
 #Region  Project Attributes 
-	#ApplicationLabel: B4A Example
+	#ApplicationLabel: LazyLoading
 	#VersionCode: 1
 	#VersionName: 
 	'SupportedOrientations possible values: unspecified, landscape or portrait.

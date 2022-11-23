@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	package="b4a.example"
+	package="b4a.example.lazyloading"
 	android:versionCode="1"
 	android:versionName=""
 	android:installLocation="internalOnly">
@@ -16,13 +16,13 @@
 	<uses-permission android:name="android.permission.WAKE_LOCK"/>
 	<application
 		android:icon="@drawable/icon"
-		android:label="B4A Example"
+		android:label="LazyLoading"
 		android:theme="@style/LightTheme">
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".main"
-			android:label="B4A Example"
+			android:label="LazyLoading"
 			android:screenOrientation="unspecified"
 			android:exported="true">
 			<intent-filter>
@@ -43,7 +43,7 @@
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".lazyloadingpage"
-			android:label="B4A Example"
+			android:label="LazyLoading"
 			android:screenOrientation="unspecified"
 			android:exported="true">
 		</activity>

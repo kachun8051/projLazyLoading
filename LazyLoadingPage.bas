@@ -14,35 +14,55 @@ Sub Process_Globals
 	'These variables can be accessed from all modules.
 	
 	Private xui As XUI
+	Private strDate As String
+	Private lstOfProduction As List
 End Sub
 
 Sub Globals
 	'These global variables will be redeclared each time the activity is created.
 	'These variables can only be accessed from this module.
 	
-	Private CLV1 As CustomListView
-	Private ImageView1 As B4XView
-	Private lblTitle As B4XView
-	Private lblContent As B4XView
-	Private lblAction1 As Label
-	Private lblAction2 As Label
-	Private lstOfProduction As List
+	Private CLV1 As CustomListView	
+	#Region RowCardUI
+	Private lblItemNo As Label
+	Private lblName As Label
+	Private lblName2 As Label
+	Private lblSellingPrice As Label
+	Private lblWeight As Label
+	Private lblDt As Label
+	#End Region
+	Private btnDate As Button
+	Private lblDate As Label	
+	
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
 	'Activity.LoadLayout("Layout1")
-	Activity.LoadLayout("1")
+	Activity.LoadLayout("2.bal")
 	Activity.Title = "Production Data"
-	If lstOfProduction.IsInitialized = False Then
-		ProgressDialogShow2("Production data loading...", True)
-		sendQueryIntent("")		
-	End If
-	' FillList2
 End Sub
 
 Sub Activity_Resume
-	
+	If lblDate.Text = "" Then
+		If strDate = "" Then
+			' when page initialize
+			strDate = getNow
+		End If		
+		lblDate.Text = strDate
+	End If
+	If CLV1.IsInitialized = False Then
+		Return
+	End If
+	If CLV1.Size = 0 Then
+		If lstOfProduction.IsInitialized = False Then
+			' when page initialize
+			ProgressDialogShow2("Production data loading...", True)
+			sendQueryIntent(strDate.Replace("/", ""))
+			Return
+		End If
+		FillTheList
+	End If
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
@@ -59,27 +79,19 @@ Private Sub getQueryResponse(mapRes As Map)
 		Return
 	End If
 	lstOfProduction = mapRes.Get("datalist").As(List)
+	FillTheList
 End Sub
 
-Sub FillList2
-	Dim bitmaps As List = Array("pexels-photo-446811.jpeg", "pexels-photo-571195.jpeg", _
-       "pexels-photo-736212.jpeg", "pexels-photo-592798.jpeg")
-	Dim n As Long = DateTime.Now
-	For i = 1 To 1000
-		Dim content As String = $"Lorem ipsum dolor sit amet,
-			consectetur adipiscing elit,
-			sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-			Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."$
-		Dim cd As CardData
-		cd.Initialize
-		cd.Title = $"This is item #${i}"$
-		cd.Content = content
-		cd.BitmapFile = bitmaps.Get((i - 1) Mod bitmaps.Size)
+Private Sub FillTheList() As Boolean
+	If lstOfProduction.IsInitialized = False Then
+		Return False
+	End If
+	For Each mapEntry As Map In lstOfProduction
 		Dim p As B4XView = xui.CreatePanel("")
-		p.SetLayoutAnimated(0, 0, 0, CLV1.AsView.Width, 280dip)
-		CLV1.Add(p, cd)
+		p.SetLayoutAnimated(0, 0, 0, CLV1.AsView.Width, 180dip)
+		CLV1.Add(p, mapEntry)
 	Next
-	Log("Loading cards took: " & (DateTime.Now - n) & "ms")
+	Return True
 End Sub
 
 Sub CLV1_VisibleRangeChanged (FirstIndex As Int, LastIndex As Int)
@@ -87,36 +99,17 @@ Sub CLV1_VisibleRangeChanged (FirstIndex As Int, LastIndex As Int)
 	For i = Max(0, FirstIndex - ExtraSize) To Min(LastIndex + ExtraSize, CLV1.Size - 1)
 		Dim p As B4XView = CLV1.GetPanel(i)
 		If p.NumberOfViews = 0 Then
-			Dim cd As CardData = CLV1.GetValue(i)
+			Dim map_1 As Map = CLV1.GetValue(i)
 			'**************** this code is similar to the code in CreateItem from the original example
-			p.LoadLayout("Card1")
-			lblTitle.Text = cd.Title
-			lblContent.Text = cd.Content
-			SetColorStateList(lblAction1, xui.Color_LightGray, lblAction1.TextColor)
-			SetColorStateList(lblAction2, xui.Color_LightGray, lblAction2.TextColor)
-			ImageView1.SetBitmap(xui.LoadBitmapResize(File.DirAssets, cd.BitmapFile, ImageView1.Width, ImageView1.Height, True))
+			p.LoadLayout("RowLayout.bal")
+			lblItemNo.Text = map_1.Get("itemnum")
+			lblName.Text = map_1.Get("itemname")
+			lblName2.Text = map_1.Get("itemname2")
+			lblSellingPrice.Text = "HK$" & map_1.Get("sellingprice")
+			lblWeight.Text = map_1.Get("weightingram") & " gram"
+			lblDt.Text = map_1.Get("packingdt").As(String).SubString2(0, 19)
 		End If
 	Next
-End Sub
-
-Sub lblAction1_Click
-	Dim index As Int = CLV1.GetItemFromView(Sender)
-	Log($"Action 1 clicked. Index: ${index}"$)
-End Sub
-
-Sub lblAction2_Click
-	Dim index As Int = CLV1.GetItemFromView(Sender)
-	Log($"Action 2 clicked. Index: ${index}"$)
-End Sub
-
-Sub SetColorStateList(Btn As Label,Pressed As Int,Enabled As Int)
-	Dim States(2,1) As Int
-	States(0,0) = 16842919    'Pressed
-	States(1,0) = 16842910    'Enabled
-	Dim CSL As JavaObject
-	CSL.InitializeNewInstance("android.content.res.ColorStateList",Array(States,Array As Int(Pressed, Enabled)))
-	Dim B1 As JavaObject = Btn
-	B1.RunMethod("setTextColor",Array As Object(CSL))
 End Sub
 
 Private Sub sendQueryIntent(datecode As String)
@@ -147,4 +140,29 @@ Private Sub getNowDateCode() As String
 	' Restore original date format
 	DateTime.DateFormat = df
 	Return daycode	
+End Sub
+
+Private Sub btnDate_Click
+	Dim dd As DateDialog
+	dd.DateTicks = DateTime.Now
+	Dim sf As Object = dd.ShowAsync("Choose Production date", "Which date?", "OK", "Cancel", "", Null, False)
+	Wait For (sf) Dialog_Result(Result As Int)
+	If Result = DialogResponse.POSITIVE Then
+		Dim df As String = DateTime.DateFormat
+		DateTime.DateFormat = "yyyy/MM/dd"
+		strDate = DateTime.Date(dd.DateTicks)		
+		lblDate.Text = strDate
+		Log(DateTime.Date(dd.DateTicks))
+		DateTime.DateFormat = df
+		sendQueryIntent(strDate.Replace("/", ""))
+	End If
+End Sub
+
+Private Sub getNow() As String
+	Dim dtNow As String = ""
+	Dim df As String = DateTime.DateFormat
+	DateTime.DateFormat = "yyyy/MM/dd"
+	dtNow = DateTime.Date(DateTime.Now)	
+	DateTime.DateFormat = df
+	Return dtNow
 End Sub
