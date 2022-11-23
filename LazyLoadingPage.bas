@@ -16,13 +16,18 @@ Sub Process_Globals
 	Private xui As XUI
 	Private strDate As String
 	Private lstOfProduction As List
+	' the selected item's index would record here
+	Private SelectedIndex As Int
 End Sub
 
 Sub Globals
 	'These global variables will be redeclared each time the activity is created.
 	'These variables can only be accessed from this module.
 	
-	Private CLV1 As CustomListView	
+	Private CLV1 As CustomListView
+	Private Swipe As CLVSwipe
+	Private ProgressBar1 As B4XView 'ignore
+	Private lblPullToRefresh As B4XView 'ignore
 	#Region RowCardUI
 	Private lblItemNo As Label
 	Private lblName As Label
@@ -41,6 +46,13 @@ Sub Activity_Create(FirstTime As Boolean)
 	'Activity.LoadLayout("Layout1")
 	Activity.LoadLayout("2.bal")
 	Activity.Title = "Production Data"
+	Swipe.Initialize(CLV1, Me, "Swipe")
+	Swipe.ActionColors = CreateMap("Delete": xui.Color_Red, "Info": xui.Color_Green, "Print": xui.Color_Yellow)
+	Dim PullToRefreshPanel As B4XView = xui.CreatePanel("")
+	PullToRefreshPanel.SetLayoutAnimated(0, 0, 0, 100%x, 70dip)
+	PullToRefreshPanel.LoadLayout("PullToRefresh.bal")
+	Swipe.PullToRefreshPanel = PullToRefreshPanel
+	SelectedIndex = -1
 End Sub
 
 Sub Activity_Resume
@@ -69,8 +81,22 @@ Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 
+Private Sub getDeletedResponse(issuccess As Boolean) 
+	ProgressDialogHide
+	If issuccess Then
+		If SelectedIndex <> -1 Then
+			lstOfProduction.RemoveAt(SelectedIndex)
+			CLV1.RemoveAt(SelectedIndex)
+			CLV1.Refresh
+		End If		
+	End If
+End Sub
+
 Private Sub getQueryResponse(mapRes As Map)
 	ProgressDialogHide
+	Swipe.RefreshCompleted ' <-- call to exit refresh mode
+	lblPullToRefresh.Text = "Pull to refresh"
+	ProgressBar1.Visible = False
 	If mapRes.IsInitialized = False Then
 		Return
 	End If
@@ -89,7 +115,8 @@ Private Sub FillTheList() As Boolean
 	For Each mapEntry As Map In lstOfProduction
 		Dim p As B4XView = xui.CreatePanel("")
 		p.SetLayoutAnimated(0, 0, 0, CLV1.AsView.Width, 180dip)
-		CLV1.Add(p, mapEntry)
+		Dim swipeitem As SwipeItem = Swipe.CreateItemValue(mapEntry, Array("Delete", "Print", "Info"))
+		CLV1.Add(p, swipeitem)
 	Next
 	Return True
 End Sub
@@ -99,7 +126,8 @@ Sub CLV1_VisibleRangeChanged (FirstIndex As Int, LastIndex As Int)
 	For i = Max(0, FirstIndex - ExtraSize) To Min(LastIndex + ExtraSize, CLV1.Size - 1)
 		Dim p As B4XView = CLV1.GetPanel(i)
 		If p.NumberOfViews = 0 Then
-			Dim map_1 As Map = CLV1.GetValue(i)
+			Dim swipeitem_1 As SwipeItem = CLV1.GetValue(i)
+			Dim map_1 As Map = swipeitem_1.Value
 			'**************** this code is similar to the code in CreateItem from the original example
 			p.LoadLayout("RowLayout.bal")
 			lblItemNo.Text = map_1.Get("itemnum")
@@ -112,6 +140,51 @@ Sub CLV1_VisibleRangeChanged (FirstIndex As Int, LastIndex As Int)
 	Next
 End Sub
 
+Sub Swipe_ActionClicked (Index As Int, ActionText As String)
+	Log($"Action clicked: ${Index}, ${ActionText}"$)
+	SelectedIndex = Index
+	Select Case ActionText
+		Case "Delete"
+			Msgbox2Async("Are you sure to delete this record?", "Delete Record", "Yes", "Cancel", "No", Null, False)
+			Wait For MsgBox_Result (Result As Int)
+			If Result = DialogResponse.POSITIVE Then
+				Dim swipeitem_2A As SwipeItem = CLV1.GetValue(Index)
+				Dim map_2A As Map = swipeitem_2A.Value
+				ProgressDialogShow2("Deleting...", True)
+				sendDeleteIntent(map_2A.Get("objectId"), Index)
+			End If
+		Case "Info"
+			Dim swipeitem_2B As SwipeItem = CLV1.GetValue(Index)
+			Dim map_2B As Map = swipeitem_2B.Value
+			Dim objUty As clsFinishedProductUtility
+			objUty.Initialize
+			Msgbox2Async(objUty.mapToString(map_2B), "Info", "OK", "", "", Null, True)
+		Case "Print"
+			
+		Case Else
+			Log("Swipe Action (Else) Clicked: " & ActionText)
+	End Select
+'	If ActionText = "Delete" Then
+'		' CLV1.RemoveAt(Index)
+'	Else If ActionText = "Do Something Else" Then
+'		Dim p As B4XView = CustomListView1.GetPanel(Index)
+'		Dim lbl As B4XView = p.GetView(0)
+'		lbl.Text = "Done!!!"
+'	End If
+End Sub
+
+Sub Swipe_RefreshRequested
+	
+	If strDate <> "" Then
+		lblPullToRefresh.Text = "Loading..."
+		ProgressBar1.Visible = True
+		CLV1.Clear
+		lstOfProduction.Clear
+		sendQueryIntent(strDate.Replace("/", ""))
+		
+	End If
+End Sub
+
 Private Sub sendQueryIntent(datecode As String)
 	If datecode = "" Then
 		datecode = getNowDateCode
@@ -122,6 +195,16 @@ Private Sub sendQueryIntent(datecode As String)
 	inte.PutExtra("sender", "LazyLoadingPage")
 	inte.PutExtra("task", "query")
 	inte.PutExtra("param", datecode)
+	StartService(inte)
+End Sub
+
+Private Sub sendDeleteIntent(objectId As String, Idx As Int)
+	Dim inte As Intent
+	inte.Initialize("", "")
+	inte.SetComponent(Application.PackageName & "/.svcproduction")
+	inte.PutExtra("sender", "LazyLoadingPage")
+	inte.PutExtra("task", "delete")
+	inte.PutExtra("param", objectId)
 	StartService(inte)
 End Sub
 
@@ -154,6 +237,9 @@ Private Sub btnDate_Click
 		lblDate.Text = strDate
 		Log(DateTime.Date(dd.DateTicks))
 		DateTime.DateFormat = df
+		CLV1.Clear
+		lstOfProduction.Clear
+		ProgressDialogShow2("Production data loading...", True)
 		sendQueryIntent(strDate.Replace("/", ""))
 	End If
 End Sub

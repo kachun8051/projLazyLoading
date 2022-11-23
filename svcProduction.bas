@@ -40,8 +40,13 @@ Sub Service_Start (StartingIntent As Intent)
 	End If
 	Select myTask
 		Case "query"
+			' myParam here is date in format yyyyMMdd
 			Dim url As String = getUrlFromOneDate(myParam)
 			sendBack4AppReq(url)
+		Case "delete"
+			' myParam here is the objectId
+			Dim url_2 As String = "https://parseapi.back4app.com/classes/Production/" & myParam
+			sendBack4AppDelete(url_2)
 			
 	End Select
 End Sub
@@ -58,7 +63,39 @@ Private Sub sendBack4AppReq(url As String)
 	Job.GetRequest.SetHeader("X-Parse-Master-Key", modCommon.masterkey)
 End Sub
 
+Private Sub sendBack4AppDelete(url As String)
+	Job.Initialize("delete", Me)
+	Job.Delete(url)
+	Job.GetRequest.SetHeader("X-Parse-Application-Id", modCommon.appid)
+	Job.GetRequest.SetHeader("X-Parse-REST-API-Key", modCommon.apikey)
+End Sub
+
 Private Sub JobDone(j As HttpJob)
+	If j.JobName = "delete" Then
+		jobdoneForDelete(j)
+	End If
+	If j.JobName = "query" Then
+		jobdoneForQuery(j)
+	End If	
+	j.Release
+End Sub
+
+Private Sub jobdoneForDelete(j As HttpJob)
+	If j.Success Then
+		Dim jResponse As String = j.GetString
+		Log(jResponse)
+		Try
+			CallSubDelayed2(mySender, "getDeletedResponse", True)
+		Catch
+			Log(LastException)
+			CallSubDelayed2(mySender, "getDeletedResponse", False)
+		End Try
+	Else
+		CallSubDelayed2(mySender, "getDeletedResponse", False)
+	End If
+End Sub
+
+Private Sub jobdoneForQuery(j As HttpJob)
 	If j.Success Then
 		Dim jResponse As String = j.GetString
 		Log(jResponse)
@@ -75,7 +112,6 @@ Private Sub JobDone(j As HttpJob)
 	Else
 		CallSubDelayed2(mySender, "getQueryResponse", CreateMap("issuccess": False, "errmsg": "Network access error"))
 	End If
-	j.Release
 End Sub
 
 ' datecode must be in format yyyyMMdd
